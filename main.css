@@ -1,9 +1,10 @@
 body {
     background-image: url("assets/images/backg.jpg");
     background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: center;
-    background-size: 1920px 1080px
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 p {
