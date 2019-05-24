@@ -65,7 +65,7 @@ function draw() {
     inky.draw_ght();
     inky.play();
     inky.move();
-    //isItIn(Pac.get_x(),Pac.get_y(),inky.get_x(),inky.get_y());
+    isItIn(Pac.get_x(),Pac.get_y(),inky.get_x(),inky.get_y());
     
     blinky.draw_ght();
     blinky.play();
@@ -76,12 +76,12 @@ function draw() {
     pinky.draw_ght();
     pinky.play();
     pinky.move();
-    //isItIn(Pac.get_x(),Pac.get_y(),pinky.get_x(),pinky.get_y());
+    isItIn(Pac.get_x(),Pac.get_y(),pinky.get_x(),pinky.get_y());
     
     clyde.draw_ght();
     clyde.play();
     clyde.move();
-    //isItIn(Pac.get_x(),Pac.get_y(),clyde.get_x(),clyde.get_y());
+    isItIn(Pac.get_x(),Pac.get_y(),clyde.get_x(),clyde.get_y());
     
     fill(255, 0, 0);
     textSize(40);
