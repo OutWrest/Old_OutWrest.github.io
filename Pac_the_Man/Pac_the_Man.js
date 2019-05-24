@@ -6,7 +6,7 @@ function preload() {
   pacman_death = loadSound('data/pacman_death.wav');
   pacman_intermission = loadSound('data/pacman_intermission.wav');
 }
-let pacCords;
+let PacCords;
 let pacDir;
 let b_dir;
 let timer;
@@ -307,8 +307,25 @@ function closePac(xc,yc,pxc,pyc,dirs) {//0 right, 1 left, 2 up, 3 down
  return dirs[argMax(lis)];
 }
 
-function blinky_move(gh,xc,yc,pxc,pyc) {
+function blinky_move(gh,xc,yc,pxc,pyc) {//blinky move
   gh.set_dir(closePac(xc,yc,pxc,pyc,avalDir(map,xc,yc,gh.get_dir())));
+}
+
+function twoFront(ary,dir) {//0 right, 1 left, 2 up, 3 down
+  var newDirs = [];
+  if(dir == 0) {
+    newDirs = [ary[0]+2,ary[1]];
+  }
+  if(dir == 1) {
+    newDirs = [ary[0]-2,ary[1]];
+  }
+  if(dir == 2) {
+    newDirs = [ary[0],ary[1]-2];
+  }
+  if(dir == 3) {
+    newDirs = [ary[0],ary[1]+2];
+  }
+  return newDirs;
 }
 
 function fourFront(ary,dir) {//0 right, 1 left, 2 up, 3 down
@@ -328,21 +345,22 @@ function fourFront(ary,dir) {//0 right, 1 left, 2 up, 3 down
   return newDirs;
 }
 
-function pinky_move(gh,xc,yc,pxc,pyc,pdir) {
-  var pac4Cords = fourFront(pacCords,pdir);
+function pinky_move(gh,xc,yc,pxc,pyc,pdir) {//pinky move
+  var pac4Cords = fourFront(PacCords,pdir);
   gh.set_dir(closePac(xc,yc,pac4Cords[0],pac4Cords[1],avalDir(map,xc,yc,gh.get_dir())));
 }
 
-function inky_move(gh,xc,yc,pxc,pyc,bdir) {
-  var pac4Cords = fourFront(pacCords,bdir);
-  gh.set_dir(closePac(xc,yc,pac4Cords[0],pac4Cords[1],avalDir(map,xc,yc,gh.get_dir())));
+function inky_move(gh,xc,yc,pxc,pyc,bdir) {//inky move
+  var Poffset = twoFront(PacCords,pacDir);
+  line(xc*width/20, yc*height/20,Poffset[0]*width,Poffset[1]*height/20);
+  gh.set_dir(closePac(xc,yc,Poffset[0],Poffset[1],avalDir(map,xc,yc,gh.get_dir())));
 }
 
 function farAwayAway(xc,yc,pxc,pyc) {
   return dist((xc*(width/20)+(width/40)),(yc*(height/20)+(height/40)),(pxc*(width/20)+(width/40)),(pyc*(height/20)+(height/40)));
 }
 
-function clyde_move(gh,xc,yc,pxc,pyc) {
+function clyde_move(gh,xc,yc,pxc,pyc) {//clyde move
   if(fourSqrs) {
     gh.set_dir(FarPac(xc,yc,pxc,pyc,avalDir(map,xc,yc,gh.get_dir())));
   }
