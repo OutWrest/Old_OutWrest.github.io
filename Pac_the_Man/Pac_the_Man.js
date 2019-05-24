@@ -50,7 +50,7 @@ function setup() {
 }
 
 function draw() {
-  if(pressed  && !hit) {//&& (millis() - timer <= wait)
+  if(pressed && (millis() - timer <= wait) && !hit) {//
     if(millis() - timer >= 20000) {
       playSound2(pacman_intermission);
     }
