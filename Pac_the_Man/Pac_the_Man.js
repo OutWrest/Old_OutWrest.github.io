@@ -50,7 +50,7 @@ function setup() {
 }
 
 function draw() {
-  if(pressed && (millis() - timer <= wait) && !hit) {
+  if(pressed  && !hit) {//&& (millis() - timer <= wait)
     if(millis() - timer >= 20000) {
       playSound2(pacman_intermission);
     }
@@ -325,6 +325,9 @@ function twoFront(ary,dir) {//0 right, 1 left, 2 up, 3 down
   if(dir == 3) {
     newDirs = [ary[0],ary[1]+2];
   }
+  if(dir == 5) {
+    newDirs = ary;
+  }
   return newDirs;
 }
 
@@ -342,6 +345,9 @@ function fourFront(ary,dir) {//0 right, 1 left, 2 up, 3 down
   if(dir == 3) {
     newDirs = [ary[0],ary[1]+4];
   }
+  if(dir == 5) {
+    newDirs = ary;
+  }
   return newDirs;
 }
 
@@ -350,10 +356,44 @@ function pinky_move(gh,xc,yc,pxc,pyc,pdir) {//pinky move
   gh.set_dir(closePac(xc,yc,pac4Cords[0],pac4Cords[1],avalDir(map,xc,yc,gh.get_dir())));
 }
 
+function toLeftof(gh,pxc,pyc) {
+  
+}
+
+
+
+
 function inky_move(gh,xc,yc,pxc,pyc,bdir) {//inky move
   var Poffset = twoFront(PacCords,pacDir);
-  line(xc*width/20, yc*height/20,Poffset[0]*width,Poffset[1]*height/20);
-  gh.set_dir(closePac(xc,yc,Poffset[0],Poffset[1],avalDir(map,xc,yc,gh.get_dir())));
+  var angle = atan2(blinky.get_y() - Poffset[1]*height/20, blinky.get_x() - Poffset[0]*width/20);
+  //print((180 * atan2(inky.get_y() - Pac.get_y(), inky.get_x() - Pac.get_x()))/PI);
+  var hy = dist(blinky.get_x(),blinky.get_y(),Pac.get_x(),Pac.get_y());
+  
+  var hors = round(cos(angle) * hy/40);
+  
+  var negaHors = true;
+  if(hors <= 0) {
+    negaHors = false;
+  }
+  
+  var vert = round(sin(angle) * hy/40);
+  
+  var negaVert = true;
+  if(vert <= 0) {
+    negaVert = false;
+  }
+  
+  if(!negaHors) {
+    hors = hors * -1;
+  }
+  if(!negaVert) {
+    vert = vert * -1;
+  }
+  
+  var distx = (hors)+Pac.get_xc();
+  var disty = (vert)+Pac.get_yc();
+  
+  gh.set_dir(closePac(xc,yc,distx,disty,avalDir(map,xc,yc,gh.get_dir())));
 }
 
 function farAwayAway(xc,yc,pxc,pyc) {

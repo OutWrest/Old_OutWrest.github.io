@@ -108,6 +108,14 @@ class PacMan{
     return this.y;
   }
   
+  get_xc() {
+    return this.xc;
+  }
+  
+  get_yc() {
+    return this.yc;
+  }
+  
   set_speed(speed) {
     this.speed = speed;
   }

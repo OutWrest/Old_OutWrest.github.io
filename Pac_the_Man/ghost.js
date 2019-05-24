@@ -133,4 +133,12 @@ class ghost {
   get_y() {
     return this.y;
   }
+  
+  get_xc() {
+    return this.xc;
+  }
+  
+  get_yc() {
+    return this.yc;
+  }
 }
