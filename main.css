@@ -1,0 +1,10 @@
+.one-full.column p,
+.one-full.column h1 {
+    margin: 0;
+}
+#navlist li
+{
+	display: inline;
+	list-style-type: none;
+	padding-right: 20px;
+}
